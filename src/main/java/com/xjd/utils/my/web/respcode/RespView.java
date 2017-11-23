@@ -2,6 +2,7 @@ package com.xjd.utils.my.web.respcode;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
  */
 @Getter
 @Setter
+@Accessors(chain = true)
 @JsonPropertyOrder({"code", "msg", "time"})
 public class RespView {
 	private String code;
@@ -20,26 +22,6 @@ public class RespView {
 
 	@JsonUnwrapped
 	private Object body;
-
-	public RespView code(String code) {
-		this.code = code;
-		return this;
-	}
-
-	public RespView msg(String msg) {
-		this.msg = msg;
-		return this;
-	}
-
-	public RespView time(Long time) {
-		this.time = time;
-		return this;
-	}
-
-	public RespView body(Object body) {
-		this.body = body;
-		return this;
-	}
 
 	@Override
 	public String toString() {

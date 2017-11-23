@@ -64,16 +64,25 @@ public class BusinessException extends RuntimeException {
 		return msg;
 	}
 
-	public String toString() {
+//	public String toString() {
+//		StringBuilder buf = new StringBuilder();
+//		buf.append(getClass().getSimpleName());
+//		buf.append("[code='" + getCode() + "'");
+//		buf.append(", args=" + Arrays.toString(args));
+//		buf.append(", msg='" + msg + "']");
+//		String message = getLocalizedMessage();
+//		buf.append((message != null) ? ": " + message : "");
+//		StackTraceElement[] traces = getStackTrace();
+//		buf.append(traces.length == 0 ? "" : ": at " + traces[0]);
+//		return buf.toString();
+//	}
+
+	@Override
+	public String getMessage() {
 		StringBuilder buf = new StringBuilder();
-		buf.append(getClass().getSimpleName());
 		buf.append("[code='" + getCode() + "'");
 		buf.append(", args=" + Arrays.toString(args));
 		buf.append(", msg='" + msg + "']");
-		String message = getLocalizedMessage();
-		buf.append((message != null) ? ": " + message : "");
-		StackTraceElement[] traces = getStackTrace();
-		buf.append(traces.length == 0 ? "" : ": at " + traces[0]);
 		return buf.toString();
 	}
 }
