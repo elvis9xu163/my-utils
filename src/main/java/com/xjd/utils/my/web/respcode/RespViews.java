@@ -41,7 +41,7 @@ public abstract class RespViews {
 			// 优先使用自定义msg
 			msg = getMessageSource().getMessage(null, args, customMsg);
 		} else {
-			msg = getMessageSource().getMessage(code, args);
+			msg = getMessageSource().getMessage("rc." + code, args);
 		}
 		return new RespView().setCode(code).setMsg(msg).setTime(System.currentTimeMillis()).setBody(body);
 	}

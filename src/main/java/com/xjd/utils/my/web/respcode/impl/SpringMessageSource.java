@@ -11,22 +11,23 @@ import com.xjd.utils.my.web.respcode.MessageSource;
  * @author elvis.xu
  * @since 2017-11-23 10:39
  */
-public class SpringMessageSource extends MessageSourceAccessor implements MessageSource {
+public class SpringMessageSource implements MessageSource {
 	private final String defaultMessage;
+	protected SpringMessageSourceAccessor springMessageSourceAccessor;
 
 	public SpringMessageSource(org.springframework.context.MessageSource messageSource, @Nullable String defaultMessage) {
-		super(messageSource);
+		this.springMessageSourceAccessor = new SpringMessageSourceAccessor(messageSource);
 		this.defaultMessage = defaultMessage;
 	}
 
 	public SpringMessageSource(org.springframework.context.MessageSource messageSource, @Nullable Locale defaultLocale, @Nullable String defaultMessage) {
-		super(messageSource, defaultLocale);
+		this.springMessageSourceAccessor = new SpringMessageSourceAccessor(messageSource, defaultLocale);
 		this.defaultMessage = defaultMessage;
 	}
 
 	@Override
 	public Locale getDefaultLocale() {
-		return super.getDefaultLocale();
+		return springMessageSourceAccessor.getDefaultLocale();
 	}
 
 	@Override
@@ -36,6 +37,22 @@ public class SpringMessageSource extends MessageSourceAccessor implements Messag
 
 	@Override
 	public String getMessage(String code, Object[] args, String defaultMessage, Locale locale) {
-		return super.getMessage(code, args, defaultMessage, locale);
+		return springMessageSourceAccessor.getMessage(code, args, defaultMessage, locale);
+	}
+
+	public static class SpringMessageSourceAccessor extends MessageSourceAccessor {
+
+		public SpringMessageSourceAccessor(org.springframework.context.MessageSource messageSource) {
+			super(messageSource);
+		}
+
+		public SpringMessageSourceAccessor(org.springframework.context.MessageSource messageSource, Locale defaultLocale) {
+			super(messageSource, defaultLocale);
+		}
+
+		@Override
+		public Locale getDefaultLocale() {
+			return super.getDefaultLocale();
+		}
 	}
 }
